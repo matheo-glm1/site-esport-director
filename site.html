@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esports Director — Télécharger la bêta</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand"><span class="dot"></span> <span id="hdrGameName">Esports Director</span></div>
+    <nav class="site-nav">
+      <a href="#features">Fonctionnalités</a>
+      <a href="#screenshots">Images</a>
+      <a href="#changelog">Notes de patch</a>
+      <a href="#download">Télécharger</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <a href="#download" class="btn btn-gold">Télécharger</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge" id="heroVersion">V0.3.3</span>
+    <h1 id="heroTitle">Esports Director</h1>
+    <p class="tagline" id="heroTagline">Chargement…</p>
+    <p class="beta-notice" id="betaNotice"></p>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-gold btn-lg" id="heroDownloadBtn">Télécharger la dernière version</a>
+      <a href="#features" class="btn btn-ghost btn-lg">Découvrir le jeu</a>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Ce que vous allez gérer</h2>
+    <p class="section-sub" id="descriptionText"></p>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="container">
+    <h2 class="section-title">Aperçu</h2>
+    <p class="section-sub">Quelques images du jeu.</p>
+    <div class="shots-grid" id="shotsGrid"></div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="container">
+    <h2 class="section-title">Télécharger</h2>
+    <p class="section-sub">La dernière version disponible pour les testeurs, gratuitement.</p>
+    <div class="buy-panel">
+      <div>
+        <div class="buy-price"><span id="downloadVersion">—</span></div>
+        <p class="buy-note" id="downloadNote"></p>
+      </div>
+      <a href="#" id="downloadBtn" class="btn btn-gold btn-lg" download>Télécharger</a>
+    </div>
+
+    <h3 class="how-to-title">Comment lancer le jeu</h3>
+    <ol class="how-to-steps">
+      <li>Dézippez le dossier téléchargé où vous voulez sur votre ordinateur.</li>
+      <li>Ouvrez le dossier et double-cliquez sur <code>Lancer le jeu.bat</code>.</li>
+      <li>Le jeu s'ouvre dans votre navigateur. Laissez la petite fenêtre noire ouverte pendant que vous jouez.</li>
+    </ol>
+
+    <div class="download-panel" id="downloadHelp"></div>
+  </div>
+</section>
+
+<section id="changelog">
+  <div class="container">
+    <h2 class="section-title">Notes de patch</h2>
+    <p class="section-sub">Les dernières mises à jour.</p>
+    <div id="changelogList"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
+    <span>© <span id="footerYear"></span> <span id="footerGameName">Esports Director</span></span>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="creator.html">Espace créateur</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

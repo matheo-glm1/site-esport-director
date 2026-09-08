@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Esports Director</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="site.html" class="brand" style="text-decoration:none;color:inherit;">
+      <span class="dot"></span> <span id="hdrGameName">Esports Director</span>
+    </a>
+    <nav class="site-nav">
+      <a href="site.html#features">Fonctionnalités</a>
+      <a href="site.html#screenshots">Images</a>
+      <a href="site.html#changelog">Notes de patch</a>
+      <a href="site.html#download">Télécharger</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <a href="site.html#download" class="btn btn-gold">Télécharger</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Questions fréquentes</h1>
+    <p>Tout ce qu'il faut savoir pour tester <span id="gameNameInline">le jeu</span>.</p>
+  </div>
+</div>
+
+<div class="page-content">
+  <div class="container" style="max-width:720px;">
+    <div id="faqList"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
+    <span>© <span id="footerYear"></span> <span id="footerGameName">Esports Director</span></span>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="creator.html">Espace créateur</a>
+    </div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+  function escapeHtml(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  const cfg = window.SITE_CONFIG;
+  if(!cfg){
+    document.getElementById('faqList').innerHTML =
+      '<p class="section-sub">Impossible de charger le contenu (config.js absent).</p>';
+    return;
+  }
+  document.title = `FAQ — ${cfg.gameName || 'Jeu'}`;
+  document.getElementById('hdrGameName').textContent = cfg.gameName;
+  document.getElementById('footerGameName').textContent = cfg.gameName;
+  document.getElementById('gameNameInline').textContent = cfg.gameName;
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  const wrap = document.getElementById('faqList');
+  const items = cfg.faq || [];
+  if(!items.length){
+    wrap.innerHTML = '<p class="section-sub">Aucune question pour le moment.</p>';
+  } else {
+    wrap.innerHTML = items.map((it,i) => `
+      <div class="faq-item" data-i="${i}">
+        <button class="faq-q"><span>${escapeHtml(it.question)}</span><span class="chev">▾</span></button>
+        <div class="faq-a"><p>${escapeHtml(it.answer)}</p></div>
+      </div>`).join('');
+    wrap.querySelectorAll('.faq-item').forEach(el=>{
+      el.querySelector('.faq-q').addEventListener('click', ()=> el.classList.toggle('open'));
+    });
+  }
+})();
+</script>
+</body>
+</html>

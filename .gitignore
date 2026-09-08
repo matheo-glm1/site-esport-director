@@ -1,0 +1,6 @@
+# Paquets du jeu produits par l'espace créateur (bouton "Publier une
+# nouvelle version"). Volontairement hors du dépôt : ces zips pèsent plus
+# de 100 Mo, ce que GitHub refuse. Ils se distribuent via GitHub Releases
+# (jusqu'à 2 Go par fichier) ou tout autre hébergement, dont l'adresse se
+# colle dans le champ "Lien de téléchargement" de l'espace créateur.
+build/

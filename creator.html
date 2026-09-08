@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace créateur — Esports Director</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .lock-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .lock-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;
+    padding:32px;max-width:380px;width:100%;text-align:center;}
+  .lock-card h1{font-size:20px;margin:0 0 6px;}
+  .lock-card p{color:var(--text-secondary);font-size:13px;margin:0 0 20px;}
+  .field{margin-bottom:14px;text-align:left;}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:5px;
+    text-transform:uppercase;letter-spacing:.03em;}
+  input[type=text],input[type=password],input[type=number],input[type=url],textarea{
+    width:100%;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;
+    color:var(--text-primary);padding:10px 12px;font-size:14px;font-family:inherit;}
+  textarea{resize:vertical;min-height:70px;}
+  input:focus,textarea:focus{outline:none;border-color:rgba(var(--accent-rgb),.6);}
+  .warn-box{background:rgba(201,87,79,.1);border:1px solid rgba(201,87,79,.35);color:#e0938d;
+    border-radius:10px;padding:12px 14px;font-size:12px;text-align:left;margin-top:18px;}
+  .editor-shell{display:none;}
+  .editor-shell.show{display:block;}
+  .lock-wrap.hide{display:none;}
+  .panel{background:var(--bg-secondary);border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:22px;}
+  .panel h2{font-size:16px;margin:0 0 16px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .list-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+  .list-row textarea,.list-row input{flex:1;}
+  .list-row .rm{background:transparent;border:1px solid var(--border);color:var(--danger);
+    border-radius:8px;padding:8px 10px;cursor:pointer;font-size:13px;flex:none;}
+  .add-row-btn{background:transparent;border:1px dashed var(--border);color:var(--text-secondary);
+    border-radius:8px;padding:9px 14px;cursor:pointer;font-size:13px;width:100%;margin-top:4px;}
+  .add-row-btn:hover{border-color:rgba(var(--accent-rgb),.5);color:var(--text-primary);}
+  .topbar{position:sticky;top:0;background:rgba(18,18,20,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);padding:14px 0;z-index:10;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .status-pill{font-size:12px;color:var(--text-secondary);}
+  .shot-thumb{position:relative;width:120px;height:68px;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex:none;}
+  .shot-thumb img{width:100%;height:100%;object-fit:cover;}
+</style>
+</head>
+<body>
+
+<div class="lock-wrap" id="lockWrap">
+  <div class="lock-card">
+    <h1 id="lockTitle">🔒 Espace créateur</h1>
+    <p id="lockSub">Chargement de la configuration…</p>
+
+    <div id="setupForm" style="display:none;">
+      <div class="field">
+        <label>Choisissez un mot de passe créateur</label>
+        <input type="password" id="setupPass1" placeholder="Mot de passe">
+      </div>
+      <div class="field">
+        <label>Confirmez-le</label>
+        <input type="password" id="setupPass2" placeholder="Confirmer">
+      </div>
+      <button class="btn btn-gold" style="width:100%" id="setupBtn">Définir et continuer</button>
+    </div>
+
+    <div id="loginForm" style="display:none;">
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="loginPass" placeholder="Mot de passe">
+      </div>
+      <button class="btn btn-gold" style="width:100%" id="loginBtn">Déverrouiller</button>
+      <p id="loginError" style="color:var(--danger);font-size:12px;margin-top:10px;display:none;">Mot de passe incorrect.</p>
+    </div>
+
+    <div class="warn-box">
+      Ce verrou protège d'un visiteur occasionnel, ce n'est <b>pas</b> une vraie sécurité (site 100% statique,
+      sans serveur) : quiconque inspecte le code source peut le contourner. Ne mettez jamais en ligne cette
+      page si vous voulez une protection sérieuse — gardez-la en local et publiez seulement le
+      <code>config.js</code> qu'elle produit.
+    </div>
+  </div>
+</div>
+
+<div class="editor-shell" id="editorShell">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand"><span class="dot"></span> Espace créateur</div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span class="status-pill" id="fileStatus"></span>
+        <a href="site.html" class="btn btn-ghost">← Voir le site public</a>
+        <button class="btn btn-gold" id="saveBtn">💾 Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:28px;padding-bottom:60px;">
+
+    <div class="panel">
+      <h2>Informations générales</h2>
+      <div class="grid-2">
+        <div class="field"><label>Nom du jeu</label><input type="text" id="f_gameName"></div>
+        <div class="field"><label>Version affichée</label><input type="text" id="f_version"></div>
+      </div>
+      <div class="field"><label>Accroche (tagline)</label><input type="text" id="f_tagline"></div>
+      <div class="field"><label>Description</label><textarea id="f_description"></textarea></div>
+    </div>
+
+    <div class="panel">
+      <h2>Téléchargement bêta</h2>
+      <p class="section-sub" style="margin-bottom:14px;">
+        Laissez le lien vide pour pointer automatiquement sur le paquet publié depuis cette page
+        (<code>build/EsportsDirector_&lt;version&gt;.zip</code>). Renseignez-le seulement si vous hébergez
+        le zip ailleurs — utile car beaucoup d'hébergeurs gratuits refusent un fichier de plus de 100 Mo.
+      </p>
+      <div class="field">
+        <label>Lien de téléchargement (vide = paquet publié ici)</label>
+        <input type="url" id="f_downloadUrl" placeholder="https://... (Google Drive, GitHub Releases, etc.)">
+      </div>
+      <div class="field"><label>Texte du bouton (vide = « Télécharger &lt;version&gt; »)</label><input type="text" id="f_downloadButtonLabel"></div>
+      <div class="field"><label>Bandeau bêta (en haut de la page d'accueil)</label><textarea id="f_betaNotice"></textarea></div>
+      <div class="field"><label>Note sous le bouton (taille, plateforme, lancement)</label><textarea id="f_downloadNote"></textarea></div>
+      <div class="field"><label>Encadré sous les étapes d'installation (remontée de bugs)</label><textarea id="f_downloadHelpText"></textarea></div>
+    </div>
+
+    <div class="panel">
+      <h2>Fonctionnalités mises en avant</h2>
+      <div id="featuresList"></div>
+      <button class="add-row-btn" id="addFeatureBtn">+ Ajouter une fonctionnalité</button>
+    </div>
+
+    <div class="panel">
+      <h2>Captures d'écran</h2>
+      <p class="section-sub" style="margin-bottom:14px;">Ajoutées en base64 directement dans le fichier — restez sur des images légères et compressées.</p>
+      <div id="shotsList" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;"></div>
+      <input type="file" id="shotUpload" accept="image/*" multiple style="display:none;">
+      <button class="add-row-btn" id="addShotBtn">+ Ajouter une image</button>
+    </div>
+
+    <div class="panel">
+      <h2>Notes de patch</h2>
+      <div id="changelogList"></div>
+      <button class="add-row-btn" id="addChangelogBtn">+ Ajouter une version</button>
+    </div>
+
+    <div class="panel">
+      <h2>Questions fréquentes (FAQ)</h2>
+      <div id="faqList"></div>
+      <button class="add-row-btn" id="addFaqBtn">+ Ajouter une question</button>
+    </div>
+
+    <div class="panel">
+      <h2>Contact &amp; mentions légales</h2>
+      <p class="section-sub" style="margin-bottom:14px;">Utilisé sur la page Contact et sur les Mentions légales — c'est l'adresse à laquelle vos testeurs enverront leurs retours.</p>
+      <div class="field"><label>Email de contact</label><input type="text" id="f_contactEmail" placeholder="contact@votredomaine.com"></div>
+      <div class="grid-2">
+        <div class="field"><label>Nom de l'éditeur (vous, ou votre structure)</label><input type="text" id="f_legalEntityName"></div>
+        <div class="field"><label>Pays (droit applicable)</label><input type="text" id="f_legalCountry" placeholder="France"></div>
+      </div>
+      <div class="field"><label>Adresse</label><input type="text" id="f_legalAddress"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Téléchargement du jeu</h2>
+      <p class="section-sub" style="margin-bottom:14px;">
+        Le bouton ci-dessous lit le dossier source du jeu, minifie tout le JavaScript (code compact et
+        illisible) et écrit le paquet dans <code>build/</code>, dans ce même dossier. C'est <b>ce fichier
+        zip</b> que le bouton de téléchargement du site public propose directement aux testeurs : dès que
+        vous publiez une nouvelle version <b>et que vous enregistrez</b> (le champ « Version affichée » se
+        met à jour tout seul après publication), le lien du site pointe sur la nouvelle.
+      </p>
+      <p class="section-sub" style="margin-bottom:14px;">
+        Nécessite Chrome ou Edge (sélection de dossier). On vous demandera de choisir deux dossiers : le
+        dossier source du jeu (ex. « Version en developpement »), puis le dossier de ce site (celui qui
+        contient ce fichier <code>creator.html</code>), pour y enregistrer le résultat dans son sous-dossier
+        <code>build/</code>.
+      </p>
+      <button class="btn btn-gold" id="publishBtn">🚀 Publier une nouvelle version du jeu</button>
+      <div id="publishProgress" style="margin-top:14px;font-size:13px;color:var(--text-secondary);"></div>
+      <pre id="publishLog" style="margin-top:8px;max-height:220px;overflow:auto;background:var(--bg-tertiary);
+        border:1px solid var(--border);border-radius:8px;padding:12px;font-size:12px;line-height:1.6;
+        white-space:pre-wrap;display:none;"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>Sécurité</h2>
+      <div class="field"><label>Changer le mot de passe créateur</label></div>
+      <div class="grid-2">
+        <input type="password" id="f_newPass1" placeholder="Nouveau mot de passe">
+        <input type="password" id="f_newPass2" placeholder="Confirmer">
+      </div>
+      <button class="btn btn-ghost" id="changePassBtn" style="margin-top:10px;">Mettre à jour le mot de passe</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="creator.js"></script>
+<script src="creator-publish.js"></script>
+</body>
+</html>
