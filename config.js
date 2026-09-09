@@ -13,7 +13,7 @@ window.SITE_CONFIG = {
   "screenshots": [],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
-  "downloadUrl": "",
+  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.3.3/EsportsDirector_V0.3.3.zip",
   "downloadButtonLabel": "",
   "downloadNote": "Windows uniquement · environ 111 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
