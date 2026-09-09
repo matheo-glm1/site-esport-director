@@ -1,7 +1,7 @@
 window.SITE_CONFIG = {
   "gameName": "Esports Director",
   "tagline": "Construisez votre organisation esport, de l'académie au sommet du circuit Valostrike",
-  "version": "V0.3.4",
+  "version": "V0.3.3",
   "description": "Esports Director vous met à la tête d'une organisation esport sur Valostrike, un tactical-shooter fictif façon Valorant. Recrutez et coachez vos joueurs, négociez avec des sponsors selon leur notoriété, concevez votre propre catalogue de produits dérivés, et faites grimper votre structure à travers un circuit compétitif hiérarchisé, des ligues Challengers jusqu'au sommet international.",
   "features": [
     "Gestion complète de club : recrutement, contrats, coaching et progression des joueurs",
@@ -19,12 +19,8 @@ window.SITE_CONFIG = {
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
     {
-      "version": "V0.3.4",
-      "highlight": "Cette mise à jour apporte un correctif majeur sur la carte Outpost de Valostrike en redimensionnant deux pyramides géantes qui bloquaient les passages et le site A, tout en habillant les hors-zones de Zenith et Outpost avec des décors uniques. L'entraînement gagne en confort grâce à un tri quotidien automatique des cartes selon leur niveau d'équipe, débrayable en mode manuel à tout moment. L'écran de création de club a été totalement simplifié : le passé du directeur offre désormais un impact économique ou de réputation permanent, son profil arbore un insigne personnalisé, le Conseiller Exécutif est directement prévisualisable, et la clarification du terme « directeur » évite la confusion avec les managers à recruter. Le système de partenariat s'enrichit avec le choix du pays du club, un bassin élargi à 192 sponsors et l'arrivée d'offres de paris sportifs très rémunératrices mais risquées. Enfin, le studio de création Merch a été entièrement repensé sur un seul écran : le catalogue intègre du matériel esport (clavier, souris, chaise), propose des visuels retravaillés avec ombrages, motifs et import d'images, tout en affinant la gestion financière grâce au choix des techniques d'impression et à l'ajustement libre des prix et des stocks. Un plantage lors de l'attribution mensuelle du joueur du mois a également été résolu"
-    },
-    {
       "version": "V0.3.3",
-      "highlight": "Pays de la structure à choisir à la création du club, notoriété des sponsors (Locale/Nationale/Internationale), sponsors de paris sportifs à double tranchant, bassin de sponsors triplé, et concepteur Merch entièrement réorganisé sur un seul écran."
+      "highlight": "Pays de la structure à choisir à la création du club, notoriété des sponsors (Locale/Nationale/Internationale), sponsors de paris sportifs à double tranchant, bassin de sponsors triplé, et concepteur Merch entièrement réorganisé sur un seul écran.\nCette mise à jour apporte un correctif majeur sur la carte Outpost de Valostrike en redimensionnant deux pyramides géantes qui bloquaient les passages et le site A, tout en habillant les hors-zones de Zenith et Outpost avec des décors uniques. L'entraînement gagne en confort grâce à un tri quotidien automatique des cartes selon leur niveau d'équipe, débrayable en mode manuel à tout moment. L'écran de création de club a été totalement simplifié : le passé du directeur offre désormais un impact économique ou de réputation permanent, son profil arbore un insigne personnalisé, le Conseiller Exécutif est directement prévisualisable, et la clarification du terme « directeur » évite la confusion avec les managers à recruter. Le système de partenariat s'enrichit avec le choix du pays du club, un bassin élargi à 192 sponsors et l'arrivée d'offres de paris sportifs très rémunératrices mais risquées. Enfin, le studio de création Merch a été entièrement repensé sur un seul écran : le catalogue intègre du matériel esport (clavier, souris, chaise), propose des visuels retravaillés avec ombrages, motifs et import d'images, tout en affinant la gestion financière grâce au choix des techniques d'impression et à l'ajustement libre des prix et des stocks. Un plantage lors de l'attribution mensuelle du joueur du mois a également été résolu"
     },
     {
       "version": "V0.3.2",
