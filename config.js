@@ -1,7 +1,7 @@
 window.SITE_CONFIG = {
   "gameName": "Esports Director",
   "tagline": "Construisez votre organisation esport, de l'académie au sommet du circuit Valostrike",
-  "version": "V0.3.3",
+  "version": "V0.3.4",
   "description": "Esports Director vous met à la tête d'une organisation esport sur Valostrike, un tactical-shooter fictif façon Valorant. Recrutez et coachez vos joueurs, négociez avec des sponsors selon leur notoriété, concevez votre propre catalogue de produits dérivés, et faites grimper votre structure à travers un circuit compétitif hiérarchisé, des ligues Challengers jusqu'au sommet international.",
   "features": [
     "Gestion complète de club : recrutement, contrats, coaching et progression des joueurs",
@@ -13,11 +13,15 @@ window.SITE_CONFIG = {
   "screenshots": [],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
-  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.3.3/EsportsDirector_V0.3.3.zip",
+  "downloadUrl": "",
   "downloadButtonLabel": "",
   "downloadNote": "Windows uniquement · environ 111 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
+    {
+      "version": "V0.3.4",
+      "highlight": "V0.3.4, l'essentiel\nRéseaux : un vrai réseau social (fil, Explorer, notifications, profils). Tous les joueurs, staffs et organisations du jeu y ont un compte, avec une seule identité par structure, GC compris.\nCompétition : Ascension suit le format officiel (2 groupes GSL de 4 en Bo3, puis 2 matchs Bo5). Stratégie Valostrike et Rocket Champ repensées, temps morts et simulation de série ajoutés.\nContrats : nouvelles primes de titre de Split, de qualification Masters et de MVP, et négociation plus lisible.\nInfrastructure : travaux, entretien mensuel, spécialisations, et quatre nouvelles installations : Fan Zone, Centre de formation, Data Lab et Cellule média.\nMerch : Atelier en 4 étapes avec prévisions de coût et de profit, éditions joueur et événement, partenaires sur le maillot.\nConfort : fiche du club refaite, couleurs de section aux logos, deux polices seulement, jeu plus fluide, sauvegardes multiples."
+    },
     {
       "version": "V0.3.3",
       "highlight": "Pays de la structure à choisir à la création du club, notoriété des sponsors (Locale/Nationale/Internationale), sponsors de paris sportifs à double tranchant, bassin de sponsors triplé, et concepteur Merch entièrement réorganisé sur un seul écran.\nCette mise à jour apporte un correctif majeur sur la carte Outpost de Valostrike en redimensionnant deux pyramides géantes qui bloquaient les passages et le site A, tout en habillant les hors-zones de Zenith et Outpost avec des décors uniques. L'entraînement gagne en confort grâce à un tri quotidien automatique des cartes selon leur niveau d'équipe, débrayable en mode manuel à tout moment. L'écran de création de club a été totalement simplifié : le passé du directeur offre désormais un impact économique ou de réputation permanent, son profil arbore un insigne personnalisé, le Conseiller Exécutif est directement prévisualisable, et la clarification du terme « directeur » évite la confusion avec les managers à recruter. Le système de partenariat s'enrichit avec le choix du pays du club, un bassin élargi à 192 sponsors et l'arrivée d'offres de paris sportifs très rémunératrices mais risquées. Enfin, le studio de création Merch a été entièrement repensé sur un seul écran : le catalogue intègre du matériel esport (clavier, souris, chaise), propose des visuels retravaillés avec ombrages, motifs et import d'images, tout en affinant la gestion financière grâce au choix des techniques d'impression et à l'ajustement libre des prix et des stocks. Un plantage lors de l'attribution mensuelle du joueur du mois a également été résolu"
