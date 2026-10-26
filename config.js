@@ -15,7 +15,7 @@ window.SITE_CONFIG = {
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
   "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4/V0.4.zip",
   "downloadButtonLabel": "",
-  "downloadNote": "Windows uniquement · environ 280 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
+  "downloadNote": "Windows uniquement · environ 230 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
     {
