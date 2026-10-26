@@ -1,7 +1,7 @@
 window.SITE_CONFIG = {
   "gameName": "Esports Director",
   "tagline": "Construisez votre organisation esport, de l'académie au sommet du circuit Valostrike",
-  "version": "V0.3.4",
+  "version": "V0.4",
   "description": "Esports Director vous met à la tête d'une organisation esport sur Valostrike, un tactical-shooter fictif façon Valorant. Recrutez et coachez vos joueurs, négociez avec des sponsors selon leur notoriété, concevez votre propre catalogue de produits dérivés, et faites grimper votre structure à travers un circuit compétitif hiérarchisé, des ligues Challengers jusqu'au sommet international.",
   "features": [
     "Gestion complète de club : recrutement, contrats, coaching et progression des joueurs",
@@ -13,11 +13,15 @@ window.SITE_CONFIG = {
   "screenshots": [],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
-  "downloadUrl": "",
+  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4/V0.4.zip",
   "downloadButtonLabel": "",
-  "downloadNote": "Windows uniquement · environ 111 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
+  "downloadNote": "Windows uniquement · environ 280 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
+    {
+      "version": "V0.4",
+      "highlight": "Nouvelle version bêta."
+    },
     {
       "version": "V0.3.4",
       "highlight": "V0.3.4, l'essentiel\nRéseaux : un vrai réseau social (fil, Explorer, notifications, profils). Tous les joueurs, staffs et organisations du jeu y ont un compte, avec une seule identité par structure, GC compris.\nCompétition : Ascension suit le format officiel (2 groupes GSL de 4 en Bo3, puis 2 matchs Bo5). Stratégie Valostrike et Rocket Champ repensées, temps morts et simulation de série ajoutés.\nContrats : nouvelles primes de titre de Split, de qualification Masters et de MVP, et négociation plus lisible.\nInfrastructure : travaux, entretien mensuel, spécialisations, et quatre nouvelles installations : Fan Zone, Centre de formation, Data Lab et Cellule média.\nMerch : Atelier en 4 étapes avec prévisions de coût et de profit, éditions joueur et événement, partenaires sur le maillot.\nConfort : fiche du club refaite, couleurs de section aux logos, deux polices seulement, jeu plus fluide, sauvegardes multiples."
