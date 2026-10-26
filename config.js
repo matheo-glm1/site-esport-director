@@ -1,7 +1,7 @@
 window.SITE_CONFIG = {
   "gameName": "Esports Director",
   "tagline": "Construisez votre organisation esport, de l'académie au sommet du circuit Valostrike",
-  "version": "V0.4.0",
+  "version": "V0.4",
   "description": "Esports Director vous met à la tête d'une organisation esport sur Valostrike, un tactical-shooter fictif façon Valorant. Recrutez et coachez vos joueurs, négociez avec des sponsors selon leur notoriété, concevez votre propre catalogue de produits dérivés, et faites grimper votre structure à travers un circuit compétitif hiérarchisé, des ligues Challengers jusqu'au sommet international.",
   "features": [
     "Gestion complète de club : recrutement, contrats, coaching et progression des joueurs",
@@ -13,13 +13,13 @@ window.SITE_CONFIG = {
   "screenshots": [],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
-  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4.0/V0.4.0.zip",
+  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4/V0.4.zip",
   "downloadButtonLabel": "",
   "downloadNote": "Windows uniquement · environ 280 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
     {
-      "version": "V0.4.0",
+      "version": "V0.4",
       "highlight": "Nouvelle version bêta."
     },
     {
