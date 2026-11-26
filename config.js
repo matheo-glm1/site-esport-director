@@ -1,7 +1,7 @@
 window.SITE_CONFIG = {
   "gameName": "Esports Director",
   "tagline": "Construisez votre organisation esport, de l'académie au sommet du circuit Valostrike",
-  "version": "V0.4",
+  "version": "V0.4.1",
   "description": "Esports Director vous met à la tête d'une organisation esport sur Valostrike, un tactical-shooter fictif façon Valorant. Recrutez et coachez vos joueurs, négociez avec des sponsors selon leur notoriété, concevez votre propre catalogue de produits dérivés, et faites grimper votre structure à travers un circuit compétitif hiérarchisé, des ligues Challengers jusqu'au sommet international.",
   "features": [
     "Gestion complète de club : recrutement, contrats, coaching et progression des joueurs",
@@ -13,11 +13,15 @@ window.SITE_CONFIG = {
   "screenshots": [],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
-  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4/V0.4.zip",
+  "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4.1/V0.4.1.zip",
   "downloadButtonLabel": "",
-  "downloadNote": "Windows uniquement · environ 230 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Lancer le jeu.bat ».",
+  "downloadNote": "Windows uniquement · environ 390 Mo · aucune installation : dézippez le dossier, puis double-cliquez sur « Esports Director.exe ».",
   "downloadHelpText": "Un bug, un plantage, une idée ? Écrivez-nous depuis la page Contact en précisant la version du jeu (affichée en bas du menu principal) et ce que vous faisiez au moment du problème.",
   "changelog": [
+    {
+      "version": "V0.4.1",
+      "highlight": "Visages 3D uniques pour les joueurs et le staff, salle de presse retravaillée avec de nouvelles questions, choix de la devise (euro, dollar, livre), nouvel écran de chargement, nouveau logo et chargement des cartes en direct 3D nettement plus rapide."
+    },
     {
       "version": "V0.4",
       "highlight": "Nouvelle version bêta."
@@ -38,7 +42,7 @@ window.SITE_CONFIG = {
   "faq": [
     {
       "question": "Comment j'installe et je lance le jeu ?",
-      "answer": "Il n'y a rien à installer. Dézippez le dossier téléchargé où vous voulez, ouvrez-le, puis double-cliquez sur « Lancer le jeu.bat » : le jeu s'ouvre tout seul dans votre navigateur. Laissez la petite fenêtre noire ouverte pendant que vous jouez, elle fait tourner le jeu."
+      "answer": "Il n'y a rien à installer. Dézippez le dossier téléchargé où vous voulez, ouvrez-le, puis double-cliquez sur « Esports Director.exe »."
     },
     {
       "question": "Sur quelles plateformes le jeu fonctionne-t-il ?",
@@ -54,7 +58,7 @@ window.SITE_CONFIG = {
     },
     {
       "question": "Est-ce que je perds ma sauvegarde en changeant de version ?",
-      "answer": "Non : votre partie est enregistrée dans votre navigateur, pas dans le dossier du jeu. Tant que vous rejouez depuis le même navigateur sur le même ordinateur, vous retrouvez votre sauvegarde après une mise à jour."
+      "answer": "Les sauvegardes sont enregistrées sur votre ordinateur, dans %APPDATA%\\EsportsDirector\\saves, et non dans le dossier du jeu : remplacer ce dossier par une nouvelle version ne les supprime pas."
     },
     {
       "question": "J'ai trouvé un bug, comment le signaler ?",
