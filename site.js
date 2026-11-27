@@ -1,106 +1,123 @@
+/* Page d'accueil. */
 (function(){
   "use strict";
-
-  const FEATURE_ICONS = ['★','🤝','🎨','🏆','🛠️','📈','⚔️','🎯'];
-
-  function escapeHtml(s){
-    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const { cfg, escapeHtml, safeUrl, safeImage, setText } = window.SiteUtils;
+  if(!cfg){
+    setText('heroTagline', "Impossible de charger le contenu du site (config.js absent).");
+    return;
   }
+  const $ = id => document.getElementById(id);
+  const fill = (id, items, html) => { const el = $(id); if(el) el.innerHTML = (items || []).map(html).join(''); };
 
-  function showToast(msg){
-    const t = document.getElementById('toast');
-    if(!t) return;
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=> t.classList.remove('show'), 3200);
-  }
+  document.title = `${cfg.gameName || 'Jeu'} : démo gratuite à télécharger`;
+  setText('heroTagline', cfg.tagline);
+  setText('betaNotice', cfg.betaNotice);
+  setText('descriptionText', cfg.description);
+  setText('downloadVersion', cfg.version);
+  setText('downloadNote', cfg.downloadNote);
+  setText('downloadHelp', cfg.downloadHelpText);
 
-  // Lien de téléchargement : par défaut le paquet produit par l'espace
-  // créateur (bouton "Publier une nouvelle version", qui écrit toujours
-  // build/EsportsDirector_<version>.zip). Renseigner downloadUrl dans
-  // config.js permet de pointer ailleurs — utile si le zip est hébergé
-  // hors du site (Drive, GitHub Releases...), notamment parce que
-  // beaucoup d'hébergeurs statiques refusent un fichier de cette taille.
-  function resolveDownloadUrl(cfg){
-    if(cfg.downloadUrl) return cfg.downloadUrl;
-    if(!cfg.version) return '';
-    return `build/EsportsDirector_${cfg.version}.zip`;
-  }
+  fill('featuresGrid', cfg.features, f => `<li>${escapeHtml(f)}</li>`);
+  fill('originsList', cfg.origins, o => `<li>${escapeHtml(o)}</li>`);
+  fill('rosterList', cfg.disciplines, d => `
+    <li class="${d.playable ? 'playable' : 'later'}">${escapeHtml(d.name)}
+      <span>${d.playable ? 'Jouable dans la démo' : 'Pas encore disponible'}</span></li>`);
 
-  function render(cfg){
-    document.title = `${cfg.gameName || 'Jeu'} — Télécharger la bêta`;
-    const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-
-    set('hdrGameName', cfg.gameName);
-    set('footerGameName', cfg.gameName);
-    set('footerYear', new Date().getFullYear());
-    set('heroVersion', cfg.version || '');
-    set('heroTitle', cfg.gameName);
-    set('heroTagline', cfg.tagline);
-    set('betaNotice', cfg.betaNotice || '');
-    set('descriptionText', cfg.description);
-    set('downloadVersion', cfg.version || '—');
-    set('downloadNote', cfg.downloadNote || '');
-
-    // Fonctionnalités
-    const grid = document.getElementById('featuresGrid');
-    grid.innerHTML = (cfg.features || []).map((f, i) => `
-      <div class="feature-card">
-        <div class="icon">${FEATURE_ICONS[i % FEATURE_ICONS.length]}</div>
-        <p>${escapeHtml(f)}</p>
-      </div>`).join('');
-
-    // Captures d'écran (ou placeholders si aucune n'est encore configurée)
-    const shots = document.getElementById('shotsGrid');
-    const list = cfg.screenshots && cfg.screenshots.length ? cfg.screenshots : [null,null,null];
-    shots.innerHTML = list.map(src => src
-      ? `<div class="shot"><img src="${src}" alt="Capture d'écran"></div>`
-      : `<div class="shot">Capture à venir</div>`
-    ).join('');
-
-    // Bouton de téléchargement : désactivé tant qu'aucune version n'est
-    // publiée (plutôt qu'un lien mort qui renverrait une page 404 au
-    // testeur sans lui dire pourquoi).
-    const url = resolveDownloadUrl(cfg);
-    const label = cfg.downloadButtonLabel
-      || (cfg.version ? `Télécharger ${cfg.version}` : 'Télécharger');
-    const downloadBtn = document.getElementById('downloadBtn');
-    if(downloadBtn){
-      if(url){
-        downloadBtn.href = url;
-        downloadBtn.textContent = label;
-        downloadBtn.removeAttribute('disabled');
-      } else {
-        downloadBtn.href = '#';
-        downloadBtn.textContent = 'Bientôt disponible';
-        downloadBtn.setAttribute('disabled','');
-        downloadBtn.addEventListener('click', (e)=>{
-          e.preventDefault();
-          showToast("Aucune version n'est encore publiée au téléchargement.");
-        });
-      }
+  /* ---- Téléchargement ---- */
+  // Sans downloadUrl, on pointe sur le paquet écrit par l'espace créateur.
+  const url = safeUrl(cfg.downloadUrl || (cfg.version ? `build/EsportsDirector_${cfg.version}.zip` : ''));
+  const label = cfg.downloadButtonLabel || `Télécharger la démo ${cfg.version || ''}`.trim();
+  ['heroDownloadBtn','downloadBtn'].forEach(id => {
+    const btn = $(id);
+    if(url){
+      btn.textContent = label;
+      if(id === 'downloadBtn') btn.href = url;
+    } else {
+      btn.textContent = 'Bientôt disponible';
+      if(id === 'downloadBtn'){ btn.removeAttribute('href'); btn.setAttribute('aria-disabled','true'); }
     }
-    // Le bouton du hero mène simplement à la section, mais son libellé
-    // suit l'état réel du téléchargement.
-    const heroBtn = document.getElementById('heroDownloadBtn');
-    if(heroBtn && !url) heroBtn.textContent = 'Bientôt disponible';
+  });
 
-    set('downloadHelp', cfg.downloadHelpText || '');
-
-    // Notes de patch
-    const cl = document.getElementById('changelogList');
-    cl.innerHTML = (cfg.changelog || []).map(e => `
-      <div class="changelog-entry">
-        <div class="v">${escapeHtml(e.version)}</div>
-        <p>${escapeHtml(e.highlight)}</p>
-      </div>`).join('') || '<p class="section-sub">Aucune note de patch pour le moment.</p>';
+  /* ---- Cagnotte ---- */
+  const donation = safeUrl(cfg.donationUrl, { httpsOnly:true });
+  const donateBtn = $('donateBtn');
+  setText('donationText', cfg.donationText);
+  if(donation){
+    donateBtn.href = donation;
+    donateBtn.removeAttribute('aria-disabled');
+    donateBtn.textContent = 'Faire un don';
+    setText('donationNote', `Le don se fait sur ${new URL(donation).hostname}, dans un nouvel onglet. Aucun paiement ne passe par ce site.`);
+  }
+  const goal = Number(cfg.donationGoal), raised = Number(cfg.donationRaised) || 0;
+  if(donation && goal > 0){
+    const euros = n => n.toLocaleString('fr-FR') + ' €';
+    $('donationGauge').hidden = false;
+    $('donationBar').max = goal;
+    $('donationBar').value = Math.min(raised, goal);
+    setText('donationAmount', `${euros(raised)} récoltés sur ${euros(goal)}`);
   }
 
-  if(window.SITE_CONFIG){
-    render(window.SITE_CONFIG);
-  } else {
-    document.getElementById('heroTagline').textContent =
-      "Impossible de charger le contenu du site (config.js absent ou non chargé avant site.js).";
+  /* ---- Notes de patch : la plus récente est ouverte ---- */
+  fill('changelogList', cfg.changelog, (e, i) => `
+    <details class="fold"${i === 0 ? ' open' : ''}>
+      <summary>${escapeHtml(e.version)}</summary>
+      ${String(e.highlight || '').split('\n').filter(Boolean).map(l => `<p>${escapeHtml(l)}</p>`).join('')}
+    </details>`);
+
+  /* ---- Loupe 4K ---- */
+  const shots = (cfg.screenshots || []).map((s, i) => {
+    const o = typeof s === 'string' ? { src:s } : (s || {});
+    const src = safeImage(o.src);
+    return { src, full: safeImage(o.full) || src, title: o.title || `Image ${i + 1}`, text: o.text || '' };
+  }).filter(s => s.src);
+  if(!shots.length){ $('loupe').hidden = true; return; }
+
+  const tabs = $('shotTabs'), stage = $('stage'), img = $('stageImg'), lens = $('lens'), link = $('stageLink');
+  let current = 0;
+  tabs.innerHTML = shots.map((s, i) =>
+    `<button type="button" role="tab" id="tab-${i}" aria-controls="stage">${escapeHtml(s.title)}</button>`).join('');
+
+  function show(i){
+    current = (i + shots.length) % shots.length;
+    const s = shots[current];
+    img.src = s.src;
+    img.alt = `Capture du jeu : ${s.title}`;
+    lens.style.backgroundImage = '';
+    link.hidden = s.full.startsWith('data:');
+    if(!link.hidden) link.href = s.full;
+    setText('stageText', s.text);
+    [...tabs.children].forEach((b, n) => {
+      b.setAttribute('aria-selected', n === current);
+      b.tabIndex = n === current ? 0 : -1;
+    });
+    stage.setAttribute('aria-labelledby', `tab-${current}`);
   }
+  tabs.addEventListener('click', e => {
+    const i = [...tabs.children].indexOf(e.target.closest('button'));
+    if(i >= 0) show(i);
+  });
+  tabs.addEventListener('keydown', e => {
+    const step = { ArrowRight:1, ArrowLeft:-1 }[e.key];
+    if(!step) return;
+    e.preventDefault();
+    show(current + step);
+    tabs.children[current].focus();
+  });
+
+  // La loupe ne sert qu'à la souris ; au tactile, on ouvre l'image 4K.
+  stage.addEventListener('pointermove', e => {
+    if(e.pointerType !== 'mouse') return;
+    const r = stage.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const zoom = 2.4, half = 150, border = 5;
+    if(!lens.style.backgroundImage) lens.style.backgroundImage = `url("${shots[current].full}")`;
+    lens.style.left = x + 'px';
+    lens.style.top = y + 'px';
+    lens.style.backgroundSize = `${r.width * zoom}px ${r.height * zoom}px`;
+    lens.style.backgroundPosition = `${half - border - x * zoom}px ${half - border - y * zoom}px`;
+    stage.classList.add('zooming');
+  });
+  stage.addEventListener('pointerleave', () => stage.classList.remove('zooming'));
+
+  show(0);
 })();

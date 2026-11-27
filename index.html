@@ -2,101 +2,161 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Esports Director — Télécharger la bêta</title>
+<title>Esports Director : démo gratuite à télécharger</title>
+<meta name="description" content="Jeu de gestion d’une organisation esport. Démo gratuite pour Windows.">
+<meta property="og:title" content="Esports Director : démo gratuite à télécharger">
+<meta property="og:description" content="Jeu de gestion d’une organisation esport. Démo gratuite pour Windows.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFB000">
+<link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
   <div class="container">
-    <div class="brand"><span class="dot"></span> <span id="hdrGameName">Esports Director</span></div>
-    <nav class="site-nav">
-      <a href="#features">Fonctionnalités</a>
-      <a href="#screenshots">Images</a>
-      <a href="#changelog">Notes de patch</a>
-      <a href="#download">Télécharger</a>
+    <a href="index.html" class="brand"><img src="assets/favicon.png" alt="" width="36" height="36"><span data-game-name>Esports Director</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="index.html#jeu">Le jeu</a>
+      <a href="index.html#loupe">Images</a>
+      <a href="index.html#download">Télécharger</a>
+      <a href="index.html#soutenir">Soutenir</a>
+      <a href="index.html#changelog">Notes de patch</a>
       <a href="faq.html">FAQ</a>
     </nav>
-    <a href="#download" class="btn btn-gold">Télécharger</a>
   </div>
 </header>
 
-<section class="hero">
+<main id="contenu">
+
+<div class="poster">
   <div class="container">
-    <span class="badge" id="heroVersion">V0.3.3</span>
-    <h1 id="heroTitle">Esports Director</h1>
-    <p class="tagline" id="heroTagline">Chargement…</p>
-    <p class="beta-notice" id="betaNotice"></p>
+    <h1><img src="assets/logo.png" alt="Esports Director" width="1269" height="467"></h1>
+    <p class="tagline" id="heroTagline">Construisez votre organisation esport</p>
     <div class="cta-row">
-      <a href="#download" class="btn btn-gold btn-lg" id="heroDownloadBtn">Télécharger la dernière version</a>
-      <a href="#features" class="btn btn-ghost btn-lg">Découvrir le jeu</a>
+      <a href="#download" class="btn btn-ink btn-lg" id="heroDownloadBtn">Télécharger la démo</a>
+      <a href="#loupe" class="btn btn-ghost btn-lg">Voir le jeu</a>
+    </div>
+    <p class="cta-meta">Gratuit, pour Windows, dans un fichier zip.</p>
+    <p class="beta-notice" id="betaNotice"></p>
+  </div>
+  <div class="hero-shot">
+    <a href="assets/shots/tableau-de-bord-4k.webp" target="_blank" rel="noopener">
+      <img src="assets/shots/tableau-de-bord.webp" width="1600" height="900" alt="Tableau de bord d'un club dans le jeu : prochain match, finances, réputation et calendrier">
+    </a>
+  </div>
+</div>
+
+<section class="band" id="jeu">
+  <div class="container">
+    <h2>Le club est à vous</h2>
+    <p class="lead" id="descriptionText"></p>
+    <ul class="features" id="featuresGrid"></ul>
+  </div>
+</section>
+
+<section class="band band-panel" id="loupe">
+  <div class="container">
+    <h2>Le jeu à la loupe</h2>
+    <p class="lead">Des captures de la démo en 4K. Avec une souris, passez sur l'image pour agrandir les détails.</p>
+    <div class="tabs" id="shotTabs" role="tablist" aria-label="Écrans du jeu"></div>
+    <div class="stage" id="stage" role="tabpanel">
+      <img id="stageImg" alt="" width="1600" height="900" loading="lazy">
+      <div class="lens" id="lens" aria-hidden="true"></div>
+    </div>
+    <div class="stage-foot">
+      <p id="stageText" aria-live="polite"></p>
+      <a class="btn btn-ghost" id="stageLink" target="_blank" rel="noopener">Ouvrir en 4K</a>
     </div>
   </div>
 </section>
 
-<section id="features">
+<section class="band">
   <div class="container">
-    <h2 class="section-title">Ce que vous allez gérer</h2>
-    <p class="section-sub" id="descriptionText"></p>
-    <div class="features-grid" id="featuresGrid"></div>
+    <h2>Choisissez votre terrain</h2>
+    <p class="lead">Votre première section décide de la scène sur laquelle votre club débute.</p>
+    <ul class="roster" id="rosterList"></ul>
   </div>
 </section>
 
-<section id="screenshots">
+<section class="band band-panel">
   <div class="container">
-    <h2 class="section-title">Aperçu</h2>
-    <p class="section-sub">Quelques images du jeu.</p>
-    <div class="shots-grid" id="shotsGrid"></div>
+    <h2>D'où vient votre club ?</h2>
+    <p class="lead">À la fondation, vous choisissez son histoire. Elle colore les suggestions et votre premier message aux fans. Vous pouvez aussi reprendre une structure existante.</p>
+    <ul class="origins" id="originsList"></ul>
   </div>
 </section>
 
-<section id="download">
+<section class="band download" id="download">
   <div class="container">
-    <h2 class="section-title">Télécharger</h2>
-    <p class="section-sub">La dernière version disponible pour les testeurs, gratuitement.</p>
-    <div class="buy-panel">
-      <div>
-        <div class="buy-price"><span id="downloadVersion">—</span></div>
-        <p class="buy-note" id="downloadNote"></p>
+    <div>
+      <h2>La démo <span id="downloadVersion"></span></h2>
+      <a class="btn btn-ink btn-lg" id="downloadBtn" href="#download">Télécharger la démo</a>
+      <p class="note" id="downloadNote"></p>
+    </div>
+    <div>
+      <ol class="steps">
+        <li><span>Dézippez le dossier téléchargé où vous voulez sur votre ordinateur.</span></li>
+        <li><span>Ouvrez le dossier et double-cliquez sur <code>Esports Director.exe</code>.</span></li>
+        <li><span>Fondez votre club, ou reprenez une structure existante.</span></li>
+      </ol>
+      <p class="help"><span id="downloadHelp"></span> <a href="contact.html">Nous écrire</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="band support" id="soutenir">
+  <div class="container">
+    <div>
+      <h2>Une offre de sponsor pour vous</h2>
+      <p class="lead" id="donationText"></p>
+    </div>
+    <div class="offer">
+      <div class="offer-head">
+        <h3>Soutenir <span data-game-name>Esports Director</span></h3>
+        <span class="offer-tag">Cagnotte</span>
       </div>
-      <a href="#" id="downloadBtn" class="btn btn-gold btn-lg" download>Télécharger</a>
+      <dl class="offer-terms">
+        <div><dt>Montant</dt><dd>Au choix</dd></div>
+        <div><dt>Obligation</dt><dd>Aucune</dd></div>
+        <div><dt>Prix de la démo</dt><dd>Gratuite</dd></div>
+      </dl>
+      <div class="gauge" id="donationGauge" hidden>
+        <progress id="donationBar" aria-label="Avancement de la cagnotte"></progress>
+        <p id="donationAmount"></p>
+      </div>
+      <a class="btn btn-gold btn-lg" id="donateBtn" target="_blank" rel="noopener noreferrer" aria-disabled="true">Cagnotte bientôt ouverte</a>
+      <p class="offer-small" id="donationNote">Le lien sera ajouté ici dès l'ouverture de la cagnotte.</p>
     </div>
-
-    <h3 class="how-to-title">Comment lancer le jeu</h3>
-    <ol class="how-to-steps">
-      <li>Dézippez le dossier téléchargé où vous voulez sur votre ordinateur.</li>
-      <li>Ouvrez le dossier et double-cliquez sur <code>Esports Director.exe</code>.</li>
-      <li>Le jeu se lance : vous pouvez commencer votre partie.</li>
-    </ol>
-
-    <div class="download-panel" id="downloadHelp"></div>
   </div>
 </section>
 
-<section id="changelog">
+<section class="band band-panel" id="changelog">
   <div class="container">
-    <h2 class="section-title">Notes de patch</h2>
-    <p class="section-sub">Les dernières mises à jour.</p>
-    <div id="changelogList"></div>
+    <h2>Notes de patch</h2>
+    <div class="folds" id="changelogList"></div>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
-    <span>© <span id="footerYear"></span> <span id="footerGameName">Esports Director</span></span>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+  <div class="container">
+    <span>© <span id="footerYear"></span> <span data-game-name>Esports Director</span></span>
+    <nav aria-label="Pied de page">
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
       <a href="mentions-legales.html">Mentions légales</a>
-      <a href="creator.html">Espace créateur</a>
-    </div>
+    </nav>
   </div>
 </footer>
 
-<div class="toast" id="toast"></div>
-
 <script src="config.js"></script>
+<script src="common.js"></script>
 <script src="site.js"></script>
 </body>
 </html>

@@ -82,6 +82,7 @@
     setVal('f_downloadNote', cfg.downloadNote);
     setVal('f_downloadHelpText', cfg.downloadHelpText);
     setVal('f_contactEmail', cfg.contactEmail);
+    ['donationUrl','donationText','donationGoal','donationRaised','hostingInfo'].forEach(k => setVal('f_' + k, cfg[k]));
     setVal('f_legalEntityName', cfg.legalEntityName);
     setVal('f_legalCountry', cfg.legalCountry);
     setVal('f_legalAddress', cfg.legalAddress);
@@ -117,7 +118,7 @@
     (cfg.screenshots || []).forEach((src, i) => {
       const box = document.createElement('div');
       box.className = 'shot-thumb';
-      box.innerHTML = `<img src="${src}"><button class="rm" style="position:absolute;top:4px;right:4px;padding:2px 6px;">✕</button>`;
+      box.innerHTML = `<img src="${escapeAttr(typeof src === 'string' ? src : src.src)}" alt=""><button class="rm" style="position:absolute;top:4px;right:4px;padding:2px 6px;">✕</button>`;
       box.querySelector('.rm').addEventListener('click', () => { cfg.screenshots.splice(i,1); renderShots(); });
       wrap.appendChild(box);
     });
@@ -200,7 +201,7 @@
     showToast('Mot de passe mis à jour — cliquez sur Enregistrer pour le sauvegarder.');
   });
 
-  function escapeAttr(s){ return String(s ?? '').replace(/"/g, '&quot;'); }
+  function escapeAttr(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   function gatherFormIntoConfig(){
     const val = id => document.getElementById(id).value;
@@ -214,6 +215,7 @@
     cfg.downloadNote = val('f_downloadNote');
     cfg.downloadHelpText = val('f_downloadHelpText');
     cfg.contactEmail = val('f_contactEmail').trim();
+    ['donationUrl','donationText','donationGoal','donationRaised','hostingInfo'].forEach(k => cfg[k] = val('f_' + k).trim());
     cfg.legalEntityName = val('f_legalEntityName');
     cfg.legalCountry = val('f_legalCountry');
     cfg.legalAddress = val('f_legalAddress');

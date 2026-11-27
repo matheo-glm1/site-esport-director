@@ -2,113 +2,93 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mentions légales — Esports Director</title>
+<title>Mentions légales : Esports Director</title>
+<meta name="description" content="Mentions légales du site Esports Director.">
+<meta property="og:title" content="Mentions légales : Esports Director">
+<meta property="og:description" content="Mentions légales du site Esports Director.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFB000">
+<link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
-      <span class="dot"></span> <span id="hdrGameName">Esports Director</span>
-    </a>
-    <nav class="site-nav">
-      <a href="index.html#features">Fonctionnalités</a>
-      <a href="index.html#screenshots">Images</a>
-      <a href="index.html#changelog">Notes de patch</a>
+    <a href="index.html" class="brand"><img src="assets/favicon.png" alt="" width="36" height="36"><span data-game-name>Esports Director</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="index.html#jeu">Le jeu</a>
+      <a href="index.html#loupe">Images</a>
       <a href="index.html#download">Télécharger</a>
+      <a href="index.html#soutenir">Soutenir</a>
+      <a href="index.html#changelog">Notes de patch</a>
       <a href="faq.html">FAQ</a>
     </nav>
-    <a href="index.html#download" class="btn btn-gold">Télécharger</a>
   </div>
 </header>
 
+<main id="contenu">
+
 <div class="page-hero">
-  <div class="container">
+  <div class="container narrow">
     <h1>Mentions légales</h1>
   </div>
 </div>
-
 <div class="page-content">
-  <div class="container" style="max-width:760px;">
-
-    <div class="legal-notice">
-      ⚠️ Modèle générique à personnaliser, ne remplace pas un avis juridique professionnel.
-      Complétez vos informations dans l'espace créateur (section « Contact &amp; mentions légales »)
-      avant de publier ce site.
-    </div>
-
+  <div class="container narrow">
     <div class="legal-block">
       <h2>Éditeur du site</h2>
       <p id="editorInfo">Chargement…</p>
     </div>
-
-    <div class="legal-block">
+    <div class="legal-block" id="hostingBlock" hidden>
       <h2>Hébergement</h2>
-      <p>Ce site est hébergé par le prestataire choisi par l'éditeur pour la mise en ligne (à préciser ici : nom, adresse, contact de l'hébergeur).</p>
+      <p id="hostingInfo"></p>
     </div>
-
     <div class="legal-block">
       <h2>Propriété intellectuelle</h2>
-      <p><span id="peGameName">Le jeu</span>, son nom, ses visuels et son contenu sont la propriété de l'éditeur mentionné ci-dessus. Toute reproduction ou diffusion non autorisée est interdite.</p>
+      <p><span data-game-name>Esports Director</span>, son nom, ses visuels et son contenu sont la propriété de l'éditeur mentionné ci-dessus. Toute reproduction ou diffusion non autorisée est interdite. Les composants tiers du jeu et leurs licences sont listés dans le fichier LICENCES-TIERS.txt fourni avec la démo.</p>
     </div>
-
     <div class="legal-block">
-      <h2>Conditions d'utilisation de la bêta</h2>
-      <p><b>Objet.</b> Mise à disposition gratuite du jeu <span id="cgvGameName">le jeu</span>, en version de test (bêta), à des fins d'essai et de retour d'expérience. Aucune vente, aucun paiement, aucun abonnement.</p>
-      <p><b>Version en développement.</b> Le jeu est fourni « en l'état », sans garantie de fonctionnement, de disponibilité ni de conservation des sauvegardes. Des bugs, des pertes de progression et des changements d'équilibrage font partie du processus de test.</p>
-      <p><b>Usage.</b> La licence accordée est personnelle et non exclusive, pour un usage privé de test. La redistribution du jeu, sa revente ou sa mise en ligne ailleurs ne sont pas autorisées.</p>
+      <h2>Conditions d'utilisation de la démo</h2>
+      <p><b>Objet.</b> Mise à disposition gratuite du jeu en version de démonstration (bêta), à des fins d'essai et de retour d'expérience. Le jeu n'est pas vendu et ne demande aucun abonnement.</p>
+      <p><b>Version en développement.</b> Le jeu est fourni « en l'état », sans garantie de fonctionnement, de disponibilité ni de conservation des sauvegardes. Des bugs, des pertes de progression et des changements d'équilibrage sont possibles.</p>
+      <p><b>Usage.</b> La licence accordée est personnelle et non exclusive, pour un usage privé. La redistribution du jeu, sa revente ou sa mise en ligne ailleurs ne sont pas autorisées.</p>
       <p><b>Retours.</b> Toute question, tout bug ou toute suggestion peut être signalé via la page <a href="contact.html">Contact</a>.</p>
     </div>
-
+    <div class="legal-block">
+      <h2>Dons</h2>
+      <p>Les dons sont facultatifs. Ils ne conditionnent pas l'accès à la démo. Ce site ne traite aucun paiement : le lien de la cagnotte mène à une plateforme externe, dont les conditions et la politique de confidentialité s'appliquent.</p>
+    </div>
     <div class="legal-block">
       <h2>Données personnelles</h2>
-      <p>Ce site ne collecte aucune donnée personnelle : pas de compte, pas de formulaire, pas de cookie de suivi, aucun paiement. Le jeu, lui, enregistre votre partie localement dans votre propre navigateur — cette sauvegarde ne quitte jamais votre ordinateur et n'est transmise à personne. Si vous nous écrivez pour signaler un bug, seules les informations que vous choisissez d'inclure dans votre message nous parviennent.</p>
+      <p>Les pages publiques de ce site n'ont ni compte, ni formulaire, ni cookie de suivi, ni outil de mesure d'audience. L'hébergeur du site et celui du fichier à télécharger peuvent conserver des journaux techniques (adresse IP, date de la requête). Votre partie est enregistrée localement sur votre ordinateur. Si vous nous écrivez, nous recevons les informations que vous mettez dans votre message.</p>
     </div>
-
     <div class="legal-block">
       <h2>Droit applicable</h2>
       <p>Les présentes mentions sont soumises au droit du pays de l'éditeur : <span id="lawCountry">—</span>.</p>
     </div>
-
   </div>
 </div>
 
+</main>
+
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
-    <span>© <span id="footerYear"></span> <span id="footerGameName">Esports Director</span></span>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+  <div class="container">
+    <span>© <span id="footerYear"></span> <span data-game-name>Esports Director</span></span>
+    <nav aria-label="Pied de page">
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
       <a href="mentions-legales.html">Mentions légales</a>
-      <a href="creator.html">Espace créateur</a>
-    </div>
+    </nav>
   </div>
 </footer>
 
 <script src="config.js"></script>
-<script>
-(function(){
-  "use strict";
-  const cfg = window.SITE_CONFIG;
-  if(!cfg){
-    document.getElementById('editorInfo').textContent =
-      'Impossible de charger le contenu (config.js absent).';
-    return;
-  }
-  document.title = `Mentions légales — ${cfg.gameName || 'Jeu'}`;
-  document.getElementById('hdrGameName').textContent = cfg.gameName;
-  document.getElementById('footerGameName').textContent = cfg.gameName;
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-  document.getElementById('peGameName').textContent = cfg.gameName || 'Le jeu';
-  document.getElementById('cgvGameName').textContent = cfg.gameName || 'le jeu';
-  document.getElementById('lawCountry').textContent = cfg.legalCountry || '—';
-
-  document.getElementById('editorInfo').textContent = (cfg.legalEntityName || cfg.legalAddress)
-    ? `${cfg.legalEntityName || '[Nom non renseigné]'} — ${cfg.legalAddress || '[Adresse non renseignée]'} — Contact : ${cfg.contactEmail || '[email non renseigné]'}`
-    : "Informations non renseignées — à compléter dans l'espace créateur.";
-})();
-</script>
+<script src="common.js"></script>
+<script src="legal.js"></script>
 </body>
 </html>

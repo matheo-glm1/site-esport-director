@@ -10,7 +10,44 @@ window.SITE_CONFIG = {
     "Circuit compétitif Valostrike complet, avec montée/descente entre ligues Challengers et scène internationale",
     "Mises à jour régulières avec notes de patch détaillées, joueur par joueur"
   ],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "assets/shots/tableau-de-bord.webp",
+      "full": "assets/shots/tableau-de-bord-4k.webp",
+      "title": "Tableau de bord",
+      "text": "Le prochain match, la santé du club et les deux semaines à venir sur un seul écran."
+    },
+    {
+      "src": "assets/shots/sponsors.webp",
+      "full": "assets/shots/sponsors-4k.webp",
+      "title": "Sponsors",
+      "text": "Chaque offre a son revenu, sa prime de signature et ses objectifs. Acceptez, négociez ou déclinez."
+    },
+    {
+      "src": "assets/shots/transferts.webp",
+      "full": "assets/shots/transferts-4k.webp",
+      "title": "Transferts",
+      "text": "Le marché du staff : niveau, compétences, expérience, salaire et intérêt pour votre club."
+    },
+    {
+      "src": "assets/shots/infrastructures.webp",
+      "full": "assets/shots/infrastructures-4k.webp",
+      "title": "Infrastructures",
+      "text": "Chaque installation a un effet, un coût d’entretien et des travaux à planifier."
+    },
+    {
+      "src": "assets/shots/creation.webp",
+      "full": "assets/shots/creation-4k.webp",
+      "title": "Création du club",
+      "text": "La fondation se déroule en huit étapes, avec la fiche du club à côté."
+    },
+    {
+      "src": "assets/shots/menu.webp",
+      "full": "assets/shots/menu-4k.webp",
+      "title": "Menu principal",
+      "text": "Fondez un club, reprenez une structure ou chargez une partie."
+    }
+  ],
   "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
   "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4.1/V0.4.1.zip",
@@ -63,10 +100,72 @@ window.SITE_CONFIG = {
     {
       "question": "J'ai trouvé un bug, comment le signaler ?",
       "answer": "Passez par la page Contact. Précisez la version du jeu (affichée en bas du menu principal), ce que vous étiez en train de faire, et si possible ce qui devait se passer à la place — c'est exactement ce qui aide le plus à corriger vite."
+    },
+    {
+      "question": "Quelles disciplines sont jouables dans la démo ?",
+      "answer": "Valostrike, Valostrike GC, Global Strike 2 et Rocket Champ. League of Champions, Call of War et Overlook apparaissent dans le jeu mais ne sont pas encore disponibles."
+    },
+    {
+      "question": "Faut-il fonder un club de zéro ?",
+      "answer": "Non. Vous pouvez créer votre club, ou reprendre une structure existante avec ses sections, son effectif et son staff."
+    },
+    {
+      "question": "Windows affiche un avertissement au lancement, pourquoi ?",
+      "answer": "Le fichier « Esports Director.exe » n’est pas signé numériquement, et Windows peut alors afficher un avertissement. Téléchargez la démo uniquement depuis le bouton de ce site. En cas de doute, ne lancez pas le fichier et écrivez-nous."
+    },
+    {
+      "question": "Comment fonctionne la cagnotte ?",
+      "answer": "Le don est facultatif et la démo reste gratuite. Quand la cagnotte est ouverte, le bouton « Faire un don » de la page d’accueil mène à une plateforme externe. Aucun paiement ne passe par ce site."
     }
   ],
   "contactEmail": "infustudio@gmail.com",
   "legalEntityName": "Infu Studio",
   "legalAddress": "Saint-Jean-De-Luz, France, 64500",
-  "legalCountry": "France"
+  "legalCountry": "France",
+  "disciplines": [
+    {
+      "name": "Valostrike",
+      "playable": true
+    },
+    {
+      "name": "Valostrike GC",
+      "playable": true
+    },
+    {
+      "name": "Global Strike 2",
+      "playable": true
+    },
+    {
+      "name": "Rocket Champ",
+      "playable": true
+    },
+    {
+      "name": "League of Champions",
+      "playable": false
+    },
+    {
+      "name": "Call of War",
+      "playable": false
+    },
+    {
+      "name": "Overlook",
+      "playable": false
+    }
+  ],
+  "origins": [
+    "Streamer qui se lance",
+    "Repreneur d’un club",
+    "Startup ambitieuse",
+    "Structure sponsorisée",
+    "Au bord de la faillite",
+    "Promu sans le sou",
+    "Géant déchu",
+    "Projet de formation",
+    "Racheté par un fonds"
+  ],
+  "donationUrl": "",
+  "donationText": "La démo est gratuite. Si elle vous plaît, vous pouvez soutenir le développement du jeu avec un don, du montant de votre choix.",
+  "donationGoal": "",
+  "donationRaised": "",
+  "hostingInfo": ""
 };
