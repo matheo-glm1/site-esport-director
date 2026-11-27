@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Espace créateur — Esports Director</title>
 <link rel="stylesheet" href="style.css">
@@ -118,6 +121,17 @@
       <div class="field"><label>Bandeau bêta (en haut de la page d'accueil)</label><textarea id="f_betaNotice"></textarea></div>
       <div class="field"><label>Note sous le bouton (taille, plateforme, lancement)</label><textarea id="f_downloadNote"></textarea></div>
       <div class="field"><label>Encadré sous les étapes d'installation (remontée de bugs)</label><textarea id="f_downloadHelpText"></textarea></div>
+    </div>
+
+    <div class="panel">
+      <h2>Cagnotte et hébergement</h2>
+      <div class="field"><label>Lien de la cagnotte (https, vide = « bientôt ouverte »)</label><input type="url" id="f_donationUrl" placeholder="https://..."></div>
+      <div class="field"><label>Texte de présentation</label><textarea id="f_donationText"></textarea></div>
+      <div class="grid-2">
+        <div class="field"><label>Objectif en euros (vide = pas de jauge)</label><input type="number" id="f_donationGoal" min="0"></div>
+        <div class="field"><label>Montant récolté en euros (mis à jour à la main)</label><input type="number" id="f_donationRaised" min="0"></div>
+      </div>
+      <div class="field"><label>Hébergeur du site (nom, adresse, contact) pour les mentions légales</label><textarea id="f_hostingInfo"></textarea></div>
     </div>
 
     <div class="panel">

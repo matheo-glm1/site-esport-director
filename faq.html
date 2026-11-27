@@ -2,87 +2,65 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ — Esports Director</title>
+<title>FAQ : Esports Director</title>
+<meta name="description" content="Réponses sur la démo d’Esports Director.">
+<meta property="og:title" content="FAQ : Esports Director">
+<meta property="og:description" content="Réponses sur la démo d’Esports Director.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFB000">
+<link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
-      <span class="dot"></span> <span id="hdrGameName">Esports Director</span>
-    </a>
-    <nav class="site-nav">
-      <a href="index.html#features">Fonctionnalités</a>
-      <a href="index.html#screenshots">Images</a>
-      <a href="index.html#changelog">Notes de patch</a>
+    <a href="index.html" class="brand"><img src="assets/favicon.png" alt="" width="36" height="36"><span data-game-name>Esports Director</span></a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="index.html#jeu">Le jeu</a>
+      <a href="index.html#loupe">Images</a>
       <a href="index.html#download">Télécharger</a>
-      <a href="faq.html">FAQ</a>
+      <a href="index.html#soutenir">Soutenir</a>
+      <a href="index.html#changelog">Notes de patch</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
     </nav>
-    <a href="index.html#download" class="btn btn-gold">Télécharger</a>
   </div>
 </header>
 
+<main id="contenu">
+
 <div class="page-hero">
-  <div class="container">
+  <div class="container narrow">
     <h1>Questions fréquentes</h1>
-    <p>Tout ce qu'il faut savoir pour tester <span id="gameNameInline">le jeu</span>.</p>
+    <p>Installation, sauvegardes, bugs et cagnotte.</p>
+  </div>
+</div>
+<div class="page-content">
+  <div class="container narrow">
+    <div class="folds" id="faqList"></div>
+    <p class="lead">Votre question n'y est pas ? <a href="contact.html">Écrivez-nous</a>.</p>
   </div>
 </div>
 
-<div class="page-content">
-  <div class="container" style="max-width:720px;">
-    <div id="faqList"></div>
-  </div>
-</div>
+</main>
 
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
-    <span>© <span id="footerYear"></span> <span id="footerGameName">Esports Director</span></span>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+  <div class="container">
+    <span>© <span id="footerYear"></span> <span data-game-name>Esports Director</span></span>
+    <nav aria-label="Pied de page">
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
       <a href="mentions-legales.html">Mentions légales</a>
-      <a href="creator.html">Espace créateur</a>
-    </div>
+    </nav>
   </div>
 </footer>
 
 <script src="config.js"></script>
-<script>
-(function(){
-  "use strict";
-  function escapeHtml(s){
-    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-  const cfg = window.SITE_CONFIG;
-  if(!cfg){
-    document.getElementById('faqList').innerHTML =
-      '<p class="section-sub">Impossible de charger le contenu (config.js absent).</p>';
-    return;
-  }
-  document.title = `FAQ — ${cfg.gameName || 'Jeu'}`;
-  document.getElementById('hdrGameName').textContent = cfg.gameName;
-  document.getElementById('footerGameName').textContent = cfg.gameName;
-  document.getElementById('gameNameInline').textContent = cfg.gameName;
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-  const wrap = document.getElementById('faqList');
-  const items = cfg.faq || [];
-  if(!items.length){
-    wrap.innerHTML = '<p class="section-sub">Aucune question pour le moment.</p>';
-  } else {
-    wrap.innerHTML = items.map((it,i) => `
-      <div class="faq-item" data-i="${i}">
-        <button class="faq-q"><span>${escapeHtml(it.question)}</span><span class="chev">▾</span></button>
-        <div class="faq-a"><p>${escapeHtml(it.answer)}</p></div>
-      </div>`).join('');
-    wrap.querySelectorAll('.faq-item').forEach(el=>{
-      el.querySelector('.faq-q').addEventListener('click', ()=> el.classList.toggle('open'));
-    });
-  }
-})();
-</script>
+<script src="common.js"></script>
+<script src="faq.js"></script>
 </body>
 </html>

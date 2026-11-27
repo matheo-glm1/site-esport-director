@@ -1,0 +1,9 @@
+# En-têtes de sécurité, lus par Netlify et Cloudflare Pages.
+# GitHub Pages ignore ce fichier : seules les balises <meta> des pages s'y appliquent.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000
