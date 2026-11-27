@@ -142,7 +142,7 @@
     log("Compression du paquet…");
     const zipped = window.fflate.zipSync(fileMap, { level:6 });
 
-    log("Choisis le dossier de CE SITE (celui qui contient creator.html) pour enregistrer le paquet…");
+    log("Choisis le dossier de CE SITE (celui qui contient index.html) pour enregistrer le paquet…");
     let siteDir;
     try{ siteDir = await window.showDirectoryPicker({ id:"site-dest", mode:"readwrite" }); }
     catch(e){ log("Annulé (le paquet n'a pas été enregistré)."); return null; }

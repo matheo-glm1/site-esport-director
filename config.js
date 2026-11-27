@@ -48,7 +48,6 @@ window.SITE_CONFIG = {
       "text": "Fondez un club, reprenez une structure ou chargez une partie."
     }
   ],
-  "creatorPasswordHash": "66364deabe16735dba6112828308bd7420a45bada5b6e9dc0817937b94b7658c",
   "betaNotice": "Version bêta réservée aux testeurs. Le jeu est encore en développement : des bugs et des changements d'équilibrage sont attendus, et vos retours sont précieux.",
   "downloadUrl": "https://github.com/matheo-glm1/site-esport-director/releases/download/V0.4.1/V0.4.1.zip",
   "downloadButtonLabel": "",

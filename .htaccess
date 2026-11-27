@@ -1,0 +1,43 @@
+# Protections pour un hébergement Apache.
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS obligatoire (sauf essais sur cette machine)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Fichiers cachés (.git, .gitignore...), sauf .well-known (certificats)
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F]
+
+  # Dans build/, seul le paquet à télécharger est public
+  RewriteRule ^build/(?!EsportsDirector_[A-Za-z0-9._-]+\.zip$) - [F,NC]
+</IfModule>
+
+# Documents et fichiers de travail
+<FilesMatch "\.(md|bak|old|log|tmp|lock|py|bat|sh|sql|ini)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+
+  # Les pages publiques sont en HTML ; admin/*.php envoie ses propres règles.
+  <FilesMatch "\.html$">
+    Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+  </FilesMatch>
+
+  # Une modification enregistrée doit être visible tout de suite
+  <Files "config.js">
+    Header set Cache-Control "no-cache"
+  </Files>
+</IfModule>
