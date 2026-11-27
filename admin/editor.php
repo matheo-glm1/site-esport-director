@@ -1,100 +1,39 @@
+<?php
+/* Interface de l'éditeur : incluse par index.php après connexion seulement. */
+if (!function_exists('is_logged_in') || !is_logged_in()) {
+    http_response_code(403);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
-<meta name="robots" content="noindex, nofollow">
-<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="csrf-token" content="<?= h(csrf_token()) ?>">
 <title>Espace créateur — Esports Director</title>
-<link rel="stylesheet" href="style.css">
-<style>
-  .lock-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
-  .lock-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;
-    padding:32px;max-width:380px;width:100%;text-align:center;}
-  .lock-card h1{font-size:20px;margin:0 0 6px;}
-  .lock-card p{color:var(--text-secondary);font-size:13px;margin:0 0 20px;}
-  .field{margin-bottom:14px;text-align:left;}
-  .field label{display:block;font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:5px;
-    text-transform:uppercase;letter-spacing:.03em;}
-  input[type=text],input[type=password],input[type=number],input[type=url],textarea{
-    width:100%;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;
-    color:var(--text-primary);padding:10px 12px;font-size:14px;font-family:inherit;}
-  textarea{resize:vertical;min-height:70px;}
-  input:focus,textarea:focus{outline:none;border-color:rgba(var(--accent-rgb),.6);}
-  .warn-box{background:rgba(201,87,79,.1);border:1px solid rgba(201,87,79,.35);color:#e0938d;
-    border-radius:10px;padding:12px 14px;font-size:12px;text-align:left;margin-top:18px;}
-  .editor-shell{display:none;}
-  .editor-shell.show{display:block;}
-  .lock-wrap.hide{display:none;}
-  .panel{background:var(--bg-secondary);border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:22px;}
-  .panel h2{font-size:16px;margin:0 0 16px;}
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .list-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
-  .list-row textarea,.list-row input{flex:1;}
-  .list-row .rm{background:transparent;border:1px solid var(--border);color:var(--danger);
-    border-radius:8px;padding:8px 10px;cursor:pointer;font-size:13px;flex:none;}
-  .add-row-btn{background:transparent;border:1px dashed var(--border);color:var(--text-secondary);
-    border-radius:8px;padding:9px 14px;cursor:pointer;font-size:13px;width:100%;margin-top:4px;}
-  .add-row-btn:hover{border-color:rgba(var(--accent-rgb),.5);color:var(--text-primary);}
-  .topbar{position:sticky;top:0;background:rgba(18,18,20,.92);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);padding:14px 0;z-index:10;}
-  .topbar .container{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-  .status-pill{font-size:12px;color:var(--text-secondary);}
-  .shot-thumb{position:relative;width:120px;height:68px;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex:none;}
-  .shot-thumb img{width:100%;height:100%;object-fit:cover;}
-</style>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="creator.css">
 </head>
 <body>
 
-<div class="lock-wrap" id="lockWrap">
-  <div class="lock-card">
-    <h1 id="lockTitle">🔒 Espace créateur</h1>
-    <p id="lockSub">Chargement de la configuration…</p>
-
-    <div id="setupForm" style="display:none;">
-      <div class="field">
-        <label>Choisissez un mot de passe créateur</label>
-        <input type="password" id="setupPass1" placeholder="Mot de passe">
-      </div>
-      <div class="field">
-        <label>Confirmez-le</label>
-        <input type="password" id="setupPass2" placeholder="Confirmer">
-      </div>
-      <button class="btn btn-gold" style="width:100%" id="setupBtn">Définir et continuer</button>
-    </div>
-
-    <div id="loginForm" style="display:none;">
-      <div class="field">
-        <label>Mot de passe</label>
-        <input type="password" id="loginPass" placeholder="Mot de passe">
-      </div>
-      <button class="btn btn-gold" style="width:100%" id="loginBtn">Déverrouiller</button>
-      <p id="loginError" style="color:var(--danger);font-size:12px;margin-top:10px;display:none;">Mot de passe incorrect.</p>
-    </div>
-
-    <div class="warn-box">
-      Ce verrou protège d'un visiteur occasionnel, ce n'est <b>pas</b> une vraie sécurité (site 100% statique,
-      sans serveur) : quiconque inspecte le code source peut le contourner. Ne mettez jamais en ligne cette
-      page si vous voulez une protection sérieuse — gardez-la en local et publiez seulement le
-      <code>config.js</code> qu'elle produit.
-    </div>
-  </div>
-</div>
-
-<div class="editor-shell" id="editorShell">
+<div class="editor-shell show" id="editorShell">
   <div class="topbar">
     <div class="container">
       <div class="brand"><span class="dot"></span> Espace créateur</div>
       <div style="display:flex;gap:10px;align-items:center;">
         <span class="status-pill" id="fileStatus"></span>
-        <a href="index.html" class="btn btn-ghost">← Voir le site public</a>
+        <a href="../index.html" class="btn btn-ghost">← Voir le site public</a>
+        <form method="post" action="./"><input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>"><input type="hidden" name="action" value="logout"><button class="btn btn-ghost">Se déconnecter</button></form>
         <button class="btn btn-gold" id="saveBtn">💾 Enregistrer</button>
       </div>
     </div>
   </div>
 
   <div class="container" style="padding-top:28px;padding-bottom:60px;">
+<?php if ($notice !== '' || $error !== ''): ?>
+    <p class="flash" role="status"><?= h($notice !== '' ? $notice : $error) ?></p>
+<?php endif; ?>
 
     <div class="panel">
       <h2>Informations générales</h2>
@@ -183,7 +122,7 @@
       <p class="section-sub" style="margin-bottom:14px;">
         Nécessite Chrome ou Edge (sélection de dossier). On vous demandera de choisir deux dossiers : le
         dossier source du jeu (ex. « Version en developpement »), puis le dossier de ce site (celui qui
-        contient ce fichier <code>creator.html</code>), pour y enregistrer le résultat dans son sous-dossier
+        contient le fichier <code>index.html</code>), pour y enregistrer le résultat dans son sous-dossier
         <code>build/</code>.
       </p>
       <button class="btn btn-gold" id="publishBtn">🚀 Publier une nouvelle version du jeu</button>
@@ -194,13 +133,17 @@
     </div>
 
     <div class="panel">
-      <h2>Sécurité</h2>
-      <div class="field"><label>Changer le mot de passe créateur</label></div>
-      <div class="grid-2">
-        <input type="password" id="f_newPass1" placeholder="Nouveau mot de passe">
-        <input type="password" id="f_newPass2" placeholder="Confirmer">
-      </div>
-      <button class="btn btn-ghost" id="changePassBtn" style="margin-top:10px;">Mettre à jour le mot de passe</button>
+      <h2>Changer le mot de passe</h2>
+      <form method="post" action="./">
+        <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
+        <input type="hidden" name="action" value="password">
+        <div class="field"><label>Mot de passe actuel</label><input type="password" name="current" autocomplete="current-password" required></div>
+        <div class="grid-2">
+          <input type="password" name="password" autocomplete="new-password" placeholder="Nouveau (<?= PASSWORD_MIN ?> caractères minimum)" required minlength="<?= PASSWORD_MIN ?>">
+          <input type="password" name="confirm" autocomplete="new-password" placeholder="Confirmer" required>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:10px;">Mettre à jour le mot de passe</button>
+      </form>
     </div>
 
   </div>
@@ -208,7 +151,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="config.js"></script>
+<script src="../config.js?v=<?= (int) @filemtime(dirname(__DIR__) . '/config.js') ?>"></script>
 <script src="creator.js"></script>
 <script src="creator-publish.js"></script>
 </body>

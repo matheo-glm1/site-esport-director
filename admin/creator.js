@@ -2,7 +2,6 @@
   "use strict";
 
   let cfg = null;        // configuration en cours d'édition
-  let fileHandle = null; // handle d'écriture (File System Access API), si disponible
 
   function showToast(msg){
     const t = document.getElementById('toast');
@@ -13,14 +12,9 @@
     showToast._t = setTimeout(()=> t.classList.remove('show'), 3200);
   }
 
-  async function sha256Hex(text){
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
   /* ============================================================
      CHARGEMENT — config.js (chargé en <script> avant ce fichier, voir
-     creator.html) pose déjà window.SITE_CONFIG ; on en fait une copie
+     admin/editor.php) pose déjà window.SITE_CONFIG ; on en fait une copie
      profonde pour éditer librement sans toucher l'objet d'origine.
      L'écriture réelle (Enregistrer) est gérée à part, plus bas.
      ============================================================ */
@@ -28,44 +22,6 @@
     if(!window.SITE_CONFIG) throw new Error('config.js introuvable ou non chargé');
     return JSON.parse(JSON.stringify(window.SITE_CONFIG));
   }
-
-  function initGate(){
-    document.getElementById('lockSub').textContent =
-      cfg.creatorPasswordHash
-        ? 'Entrez le mot de passe créateur pour continuer.'
-        : 'Premier lancement : choisissez un mot de passe créateur.';
-    if(cfg.creatorPasswordHash){
-      document.getElementById('loginForm').style.display = 'block';
-    } else {
-      document.getElementById('setupForm').style.display = 'block';
-    }
-  }
-
-  function unlockEditor(){
-    document.getElementById('lockWrap').classList.add('hide');
-    document.getElementById('editorShell').classList.add('show');
-    populateForm();
-  }
-
-  document.getElementById('setupBtn').addEventListener('click', async ()=>{
-    const p1 = document.getElementById('setupPass1').value;
-    const p2 = document.getElementById('setupPass2').value;
-    if(!p1 || p1.length < 4){ showToast('Mot de passe trop court (4 caractères minimum).'); return; }
-    if(p1 !== p2){ showToast('Les deux mots de passe ne correspondent pas.'); return; }
-    cfg.creatorPasswordHash = await sha256Hex(p1);
-    unlockEditor();
-    showToast('Mot de passe défini — pensez à cliquer sur Enregistrer pour le sauvegarder.');
-  });
-
-  document.getElementById('loginBtn').addEventListener('click', async ()=>{
-    const p = document.getElementById('loginPass').value;
-    const hash = await sha256Hex(p);
-    if(hash === cfg.creatorPasswordHash){
-      unlockEditor();
-    } else {
-      document.getElementById('loginError').style.display = 'block';
-    }
-  });
 
   /* ============================================================
      FORMULAIRE
@@ -118,7 +74,8 @@
     (cfg.screenshots || []).forEach((src, i) => {
       const box = document.createElement('div');
       box.className = 'shot-thumb';
-      box.innerHTML = `<img src="${escapeAttr(typeof src === 'string' ? src : src.src)}" alt=""><button class="rm" style="position:absolute;top:4px;right:4px;padding:2px 6px;">✕</button>`;
+      const path = typeof src === 'string' ? src : src.src;
+      box.innerHTML = `<img src="${escapeAttr(/^(data:|https:)/i.test(path) ? path : '../' + path)}" alt=""><button class="rm" style="position:absolute;top:4px;right:4px;padding:2px 6px;">✕</button>`;
       box.querySelector('.rm').addEventListener('click', () => { cfg.screenshots.splice(i,1); renderShots(); });
       wrap.appendChild(box);
     });
@@ -190,17 +147,6 @@
     renderFaq();
   });
 
-  document.getElementById('changePassBtn').addEventListener('click', async ()=>{
-    const p1 = document.getElementById('f_newPass1').value;
-    const p2 = document.getElementById('f_newPass2').value;
-    if(!p1 || p1.length < 4){ showToast('Mot de passe trop court (4 caractères minimum).'); return; }
-    if(p1 !== p2){ showToast('Les deux mots de passe ne correspondent pas.'); return; }
-    cfg.creatorPasswordHash = await sha256Hex(p1);
-    document.getElementById('f_newPass1').value = '';
-    document.getElementById('f_newPass2').value = '';
-    showToast('Mot de passe mis à jour — cliquez sur Enregistrer pour le sauvegarder.');
-  });
-
   function escapeAttr(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   function gatherFormIntoConfig(){
@@ -224,63 +170,41 @@
   }
 
   /* ============================================================
-     ENREGISTREMENT — File System Access API si disponible (réécrit
-     directement le config.js déjà ouvert, sans manipulation manuelle) ;
-     sinon repli universel : déclenche le téléchargement du fichier mis
-     à jour, à glisser soi-même dans le dossier du site pour remplacer
-     l'ancien. Format .js (window.SITE_CONFIG = {...}) et non .json : un
-     <script src> se charge sans serveur, y compris en double-clic
-     (file://), contrairement à un fetch('config.json').
+     ENREGISTREMENT — envoyé à save.php, qui vérifie la session, le jeton
+     CSRF et chaque champ avant d'écrire config.js.
      ============================================================ */
   function refreshFileStatus(){
-    document.getElementById('fileStatus').textContent = fileHandle
-      ? '📄 config.js ouvert en écriture directe'
-      : ('showSaveFilePicker' in window)
-        ? '📄 Enregistrer vous demandera de choisir config.js une première fois'
-        : '📄 Enregistrer téléchargera un config.js à remplacer manuellement';
+    document.getElementById('fileStatus').textContent = 'Connecté';
   }
 
   async function saveConfig(){
     gatherFormIntoConfig();
-    const fileContent = `window.SITE_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`;
-
-    if('showSaveFilePicker' in window){
-      try{
-        if(!fileHandle){
-          fileHandle = await window.showSaveFilePicker({
-            suggestedName: 'config.js',
-            types: [{ description:'JavaScript', accept: { 'text/javascript': ['.js'] } }],
-          });
-        }
-        const writable = await fileHandle.createWritable();
-        await writable.write(fileContent);
-        await writable.close();
-        refreshFileStatus();
-        showToast('✅ config.js enregistré.');
-        return;
-      }catch(err){
-        if(err && err.name === 'AbortError') return; // l'utilisateur a annulé la boîte de dialogue
-        console.warn('Écriture directe impossible, repli sur le téléchargement :', err);
-      }
+    delete cfg.creatorPasswordHash;
+    try{
+      const res = await fetch('save.php', {
+        method:'POST',
+        credentials:'same-origin',
+        headers:{
+          'Content-Type':'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+        },
+        body: JSON.stringify(cfg),
+      });
+      const data = await res.json().catch(() => ({}));
+      showToast(res.ok && data.ok ? '✅ Modifications enregistrées.'
+        : `Non enregistré : ${data.error || 'erreur ' + res.status}`);
+    }catch(err){
+      console.error(err);
+      showToast('Non enregistré : le serveur ne répond pas.');
     }
-
-    // Repli : téléchargement classique.
-    const blob = new Blob([fileContent], { type:'text/javascript' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'config.js';
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-    showToast('⬇️ config.js téléchargé — remplacez le fichier dans le dossier du site.');
   }
   document.getElementById('saveBtn').addEventListener('click', saveConfig);
 
   /* ============================================================ */
   loadConfig()
-    .then(data => { cfg = data; initGate(); })
+    .then(data => { cfg = data; populateForm(); })
     .catch(err => {
       console.error(err);
-      document.getElementById('lockSub').textContent =
-        "Impossible de charger config.js. Vérifiez que le fichier est bien présent à côté de creator.html.";
+      showToast('Impossible de charger config.js.');
     });
 })();

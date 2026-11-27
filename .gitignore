@@ -4,3 +4,7 @@
 # (jusqu'à 2 Go par fichier) ou tout autre hébergement, dont l'adresse se
 # colle dans le champ "Lien de téléchargement" de l'espace créateur.
 build/
+
+# Secrets et fichiers de travail de l'espace créateur : jamais dans Git.
+admin/private/*
+!admin/private/.htaccess
