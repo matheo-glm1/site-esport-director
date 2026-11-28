@@ -162,7 +162,7 @@ window.SITE_CONFIG = {
     "Projet de formation",
     "Racheté par un fonds"
   ],
-  "donationUrl": "",
+  "donationUrl": "https://buymeacoffee.com/Infustudio",
   "donationText": "La démo est gratuite. Si elle vous plaît, vous pouvez soutenir le développement du jeu avec un don, du montant de votre choix.",
   "donationGoal": "",
   "donationRaised": "",
