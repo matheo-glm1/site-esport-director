@@ -1,0 +1,6 @@
+# Fichiers gardes dans le depot mais non publies par GitHub Pages.
+exclude:
+  - admin
+  - docs
+  - README.md
+  - SECURITE.md
